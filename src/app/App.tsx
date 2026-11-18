@@ -8,6 +8,7 @@ import { AboutPage } from './components/AboutPage';
 import { BlogPage } from './components/BlogPage';
 import { BlogPostPage } from './components/BlogPostPage';
 import { ContactPage } from './components/ContactPage';
+import { LearnTherapyPage } from './components/LearnTherapyPage';
 
 export default function App() {
   return (
@@ -25,6 +26,7 @@ export default function App() {
             <Route path="/blog" element={<BlogPage />} />
             <Route path="/blog/:slug" element={<BlogPostPage />} />
             <Route path="/contact" element={<ContactPage />} />
+            <Route path="/learn-therapy" element={<LearnTherapyPage />} />
           </Routes>
         </main>
         <Footer />

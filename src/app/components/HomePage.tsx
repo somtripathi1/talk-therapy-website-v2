@@ -103,7 +103,7 @@ export function HomePage() {
                   className="border-2 border-foreground/20 hover:bg-foreground/5 rounded-full px-8"
                   asChild
                 >
-                  <Link to="/about">Learn About Therapy</Link>
+                  <Link to="/learn-therapy">Learn About Therapy</Link>
                 </Button>
               </div>
             </div>
