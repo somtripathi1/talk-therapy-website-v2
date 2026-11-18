@@ -183,30 +183,44 @@ export function AboutPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 lg:py-32 bg-gradient-to-br from-secondary/30 via-background to-accent/10">
+
+      <section className="py-20 lg:py-32 bg-white">
         <div className="container mx-auto px-4 lg:px-8">
           <div className="bg-gradient-to-r from-primary to-accent rounded-3xl p-12 lg:p-16 text-center relative overflow-hidden">
             {/* Decorative Elements */}
             <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2"></div>
             <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/10 rounded-full translate-y-1/2 -translate-x-1/2"></div>
-            
+
             <div className="relative z-10">
-              <h2 className="text-3xl lg:text-4xl font-semibold mb-6 text-white">Ready to Start Your Journey?</h2>
-              <p className="text-lg text-white/90 mb-8 max-w-2xl mx-auto">
-                You don't have to figure everything out alone. A free consultation can help you decide whether therapy feels like the right next step.
+              <h2 className="text-4xl lg:text-5xl font-semibold mb-6 text-white">
+                Ready to Begin?
+              </h2>
+              <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+                Taking the first step can feel difficult, especially when things have been heavy for a while. A free consultation offers a chance to ask questions, share what's been happening, and see whether working together feels like the right fit.
               </p>
-              <Button 
-                size="lg" 
-                variant="secondary"
-                className="rounded-full px-8"
-                asChild
-              >
-                <Link to="/contact">Schedule Free Consultation</Link>
-              </Button>
+              <div className="flex flex-wrap gap-4 justify-center">
+                <Button
+                  size="lg"
+                  variant="secondary"
+                  className="rounded-full px-8"
+                  asChild
+                >
+                  <Link to="/contact">Schedule Free Consultation</Link>
+                </Button>
+                <Button
+                  size="lg"
+                  variant="secondary"
+                  className="rounded-full px-8"
+                  asChild
+                >
+                  <Link to="/about">Learn More About Me</Link>
+                </Button>
+              </div>
             </div>
           </div>
         </div>
       </section>
+
     </div>
   );
 }

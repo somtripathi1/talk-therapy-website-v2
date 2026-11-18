@@ -239,7 +239,38 @@ export function HomePage() {
           </div>
         </div>
       </section>
-
+      <section className="py-20 bg-white relative">
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-secondary/30 rounded-full translate-x-1/3 translate-y-1/3"></div>
+        <div className="container mx-auto px-4 lg:px-8 max-w-4xl relative z-10">
+          <h2 className="text-3xl lg:text-5xl font-semibold mb-8 text-center">How We Will Work Together</h2>
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="bg-secondary/50 rounded-3xl p-8">
+              <h3 className="text-xl mb-2">A Collaborative Approach</h3>
+              <p className="text-muted-foreground leading-relaxed">
+                Meaningful change begins within a trusting therapeutic relationship. My approach is collaborative, compassionate, and non-judgmental. I will meet you where you are, help you feel understood, and create a space where difficult emotions and experiences can be explored safely and honestly.
+              </p>
+            </div>
+            <div className="bg-secondary/50 rounded-3xl p-8">
+              <h3 className="text-xl mb-2">Building on Your Strengths</h3>
+              <p className="text-muted-foreground leading-relaxed">
+                You already possess strengths, insights, and inner resources that can support meaningful change. Together, we will identify what matters most to you, understand what may be keeping you stuck, and clarify the life and relationships you want to create.
+              </p>
+            </div>
+            <div className="bg-secondary/50 rounded-3xl p-8">
+              <h3 className="text-xl mb-2">Emotionally Focused and Relational Care</h3>
+              <p className="text-muted-foreground leading-relaxed">
+                Through emotion-focused, relational, and mindfulness-based approaches, I will help you slow down, understand what is happening beneath familiar reactions, and make space for the emotions and needs that may be difficult to express.
+              </p>
+            </div>
+            <div className="bg-secondary/50 rounded-3xl p-8">
+              <h3 className="text-xl mb-2">Creating Change in the Present</h3>
+              <p className="text-muted-foreground leading-relaxed">
+                Although we may explore your past to understand how certain patterns developed, therapy will also focus on how those patterns are affecting your life today — helping you move through challenges with greater clarity and shape a future aligned with who you want to be.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
       {/* Specialty Areas Section */}
       <section className="py-20 lg:py-32 bg-white relative overflow-hidden">
         <div className="absolute top-20 left-20 w-40 h-40 rounded-full bg-accent/10"></div>

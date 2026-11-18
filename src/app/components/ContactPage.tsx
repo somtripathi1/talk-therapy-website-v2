@@ -43,7 +43,7 @@ export function ContactPage() {
             {/* Contact Form */}
             <div>
               <div className="bg-white rounded-3xl shadow-lg p-8">
-                <h2 className="text-2xl mb-6">Send Me a Message</h2>
+                <h2 className="text-2xl mb-6">Send a Message</h2>
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="space-y-2">
                     <Label htmlFor="name">Full Name</Label>
@@ -61,7 +61,7 @@ export function ContactPage() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="service">Service Interested In</Label>
+                    <Label htmlFor="service">Service of Interest</Label>
                     <select
                       id="service"
                       className="flex h-10 w-full rounded-md border border-input bg-input-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
