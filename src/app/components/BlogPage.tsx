@@ -1,14 +1,17 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from './ui/button';
 import { ImageWithFallback } from './figma/ImageWithFallback';
-import { Calendar, Clock, ArrowRight } from 'lucide-react';
+import { Calendar, Clock, ArrowRight, ChevronDown, SlidersHorizontal } from 'lucide-react';
 import { client, urlFor, POSTS_QUERY, formatDate, formatReadTime, type BlogPost } from '../lib/sanity';
 
 export function BlogPage() {
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState<string>('All');
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     client
@@ -16,6 +19,25 @@ export function BlogPage() {
       .then(setPosts)
       .catch(() => setError(true))
       .finally(() => setLoading(false));
+  }, []);
+
+  // Derive unique categories from fetched posts
+  const categories = ['All', ...Array.from(new Set(posts.map((p) => p.category).filter(Boolean)))];
+
+  // Filtered posts based on selected category
+  const filteredPosts = selectedCategory === 'All'
+    ? posts
+    : posts.filter((p) => p.category === selectedCategory);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setDropdownOpen(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
   return (
@@ -44,14 +66,70 @@ export function BlogPage() {
         <div className="absolute bottom-0 right-0 w-64 h-64 bg-primary/10 rounded-full translate-x-1/3 translate-y-1/3"></div>
 
         <div className="container mx-auto px-4 lg:px-8 relative z-10">
+
+          {/* ── Filter Bar ── */}
+          {!loading && !error && posts.length > 0 && (
+            <div className="flex items-center justify-between mb-10">
+              <p className="text-muted-foreground text-sm">
+                Showing <span className="font-medium text-foreground">{filteredPosts.length}</span> {filteredPosts.length === 1 ? 'article' : 'articles'}
+                {selectedCategory !== 'All' && <> in <span className="font-medium text-primary">{selectedCategory}</span></>}
+              </p>
+
+              {/* Filter dropdown */}
+              <div className="relative" ref={dropdownRef}>
+                <button
+                  onClick={() => setDropdownOpen((o) => !o)}
+                  className="flex items-center gap-2 px-5 py-2.5 rounded-full border-2 border-foreground/15 bg-white hover:bg-foreground/5 transition-colors text-sm font-medium"
+                >
+                  <SlidersHorizontal className="w-4 h-4 text-primary" />
+                  Filter
+                  {selectedCategory !== 'All' && (
+                    <span className="ml-1 bg-primary text-primary-foreground rounded-full px-2 py-0.5 text-xs">
+                      {selectedCategory}
+                    </span>
+                  )}
+                  <ChevronDown className={`w-4 h-4 text-muted-foreground transition-transform duration-200 ${dropdownOpen ? 'rotate-180' : ''}`} />
+                </button>
+
+                {dropdownOpen && (
+                  <div className="absolute right-0 mt-2 w-52 bg-white rounded-2xl shadow-xl border border-foreground/10 overflow-hidden z-50">
+                    <div className="px-4 py-2.5 border-b border-foreground/5">
+                      <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Category</p>
+                    </div>
+                    <ul className="py-1">
+                      {categories.map((cat) => (
+                        <li key={cat}>
+                          <button
+                            onClick={() => { setSelectedCategory(cat); setDropdownOpen(false); }}
+                            className={`w-full text-left px-4 py-2.5 text-sm transition-colors hover:bg-secondary/60 flex items-center justify-between ${
+                              selectedCategory === cat ? 'text-primary font-semibold' : 'text-foreground'
+                            }`}
+                          >
+                            {cat}
+                            {selectedCategory === cat && (
+                              <span className="w-2 h-2 rounded-full bg-primary" />
+                            )}
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
           {loading && <p className="text-center text-muted-foreground">Loading articles…</p>}
           {error && <p className="text-center text-muted-foreground">Couldn't load articles. Please try again later.</p>}
           {!loading && !error && posts.length === 0 && (
             <p className="text-center text-muted-foreground">New articles are coming soon.</p>
           )}
+          {!loading && !error && filteredPosts.length === 0 && posts.length > 0 && (
+            <p className="text-center text-muted-foreground py-10">No articles found in <span className="font-medium">{selectedCategory}</span>.</p>
+          )}
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {posts.map((post) => (
+            {filteredPosts.map((post) => (
               <Link
                 key={post._id}
                 to={`/blog/${post.slug}`}
